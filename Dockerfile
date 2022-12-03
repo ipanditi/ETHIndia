@@ -1,9 +1,17 @@
 FROM jupyter/base-notebook:latest
 
-WORKDIR /home/joyvan/work/
+ENV GRANT_SUDO yes
+ENV CHOWN_HOME yes
+
+USER root
+WORKDIR /home/joyvan/work
+
+RUN sudo apt update
+RUN sudo apt install -y nginx
 
 COPY . /home/joyvan/work/
-
 RUN pip install -r requirements.txt
+RUN bash ipyhtml.sh
 
-CMD ["tail", "-f", "/dev/null"]
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
