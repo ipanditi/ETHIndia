@@ -1,0 +1,9 @@
+numpy
+scipy
+pandas
+pulp
+matplotlib
+seaborn
+openpyxl
+plotly
+networkx

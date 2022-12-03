@@ -1,0 +1,22 @@
+version: "3"
+services:
+  jupyter-nginx:
+    build: .
+    container_name: jupyter-nginx
+    user: "0:0"
+    environment:
+      GRANT_SUDO: yes
+      CHOWN_HOME: yes
+    restart: unless-stopped
+    volumes:
+      - ./docker-volumes:/home/joyvan/work/html/
+      - ./data:/home/jovyan/work/data
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+    restart: unless-stopped
+    volumes:
+      - ./docker-volumes:/usr/share/nginx/html/
